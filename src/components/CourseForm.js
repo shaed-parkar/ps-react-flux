@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import DropDownInput from "./common/DropDownInput";
 import TextInput from "./common/TextInput";
 
 function CourseForm(props) {
@@ -13,26 +14,15 @@ function CourseForm(props) {
         error={props.errors.title}
       />
 
-      <div className="form-group">
-        <label htmlFor="author">Author</label>
-        <div className="field">
-          <select
-            id="author"
-            name="authorId"
-            value={props.course.authorId || ""}
-            onChange={props.onChange}
-            error={props.errors.authorId}
-            className="form-control"
-          >
-            {props.authors.map((_author) => {
-              return <option value={_author.id}>{_author.name}</option>;
-            })}
-          </select>
-        </div>
-        {props.errors.authorId && (
-          <div className="alert alert-danger">{props.errors.authorId}</div>
-        )}
-      </div>
+      <DropDownInput
+        id="author"
+        name="authorId"
+        label="Author"
+        value={props.course.authorId}
+        values={props.authors}
+        onChange={props.onChange}
+        error={props.errors.authorId}
+      />
 
       <TextInput
         id="category"
