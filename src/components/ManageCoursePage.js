@@ -21,7 +21,12 @@ const ManageCoursePage = (props) => {
     if (courses.length === 0) {
       courseActions.loadCourses();
     } else if (slug) {
-      setCourse(courseStore.getCourseBySlug(slug));
+      const searchedCourse = courseStore.getCourseBySlug(slug);
+      if (searchedCourse) {
+        setCourse(searchedCourse);
+      } else {
+        props.history.push("/not-found");
+      }
     }
     return () => courseStore.removeChangeListener(onChange);
   }, [courses.length, props.match.params.slug]);
