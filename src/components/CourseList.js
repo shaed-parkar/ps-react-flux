@@ -16,6 +16,7 @@ function CourseList(props) {
       </thead>
       <tbody>
         {props.courses.map((course) => {
+          const _author = props.authors.find((x) => x.id === course.authorId);
           return (
             <tr key={course.id}>
               <td>
@@ -32,7 +33,7 @@ function CourseList(props) {
               <td>
                 <Link to={"/course/" + course.slug}>{course.title}</Link>
               </td>
-              <td>{course.authorId}</td>
+              <td>{_author.name}</td>
               <td>{course.category}</td>
             </tr>
           );
@@ -50,6 +51,12 @@ CourseList.propTypes = {
       title: PropTypes.string.isRequired,
       authorId: PropTypes.number.isRequired,
       category: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  authors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
