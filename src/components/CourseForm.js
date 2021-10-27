@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 import TextInput from "./common/TextInput";
 
 function CourseForm(props) {
@@ -25,9 +24,9 @@ function CourseForm(props) {
             error={props.errors.authorId}
             className="form-control"
           >
-            <option value="" />
-            <option value="1">Cory House</option>
-            <option value="2">Scott Allen</option>
+            {props.authors.map((_author) => {
+              return <option value={_author.id}>{_author.name}</option>;
+            })}
           </select>
         </div>
         {props.errors.authorId && (
@@ -51,6 +50,7 @@ function CourseForm(props) {
 
 CourseForm.propTypes = {
   course: PropTypes.object.isRequired,
+  authors: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
